@@ -27,18 +27,6 @@ public class Player {
 
     public Player(){}
 
-    public Player(int teamId, String firstName,
-                  String lastName, int age, int height, int weight,
-                  String position, double salary) {
-        this.teamId = teamId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.height = height;
-        this.weight = weight;
-        this.position = position;
-        this.salary = salary;
-    }
 
     public int getPlayerId() {
         return playerId;
