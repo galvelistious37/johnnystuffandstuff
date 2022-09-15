@@ -10,9 +10,6 @@ import java.util.List;
 public class PlayerDAO {
     DBUtils dbUtils;
 
-    // testing
-    
-
     public PlayerDAO(){}
 
     public int insertPlayer(Player player) throws SQLException {
