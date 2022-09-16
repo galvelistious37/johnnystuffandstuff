@@ -1,7 +1,8 @@
-package com.johnny.pack.age;
+package com.johnny.pack.age.utilsandprops;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
 import com.mysql.cj.jdbc.MysqlDataSource;
 
 public class DBUtils {

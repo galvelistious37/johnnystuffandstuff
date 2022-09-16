@@ -1,5 +1,6 @@
 package com.johnny.pack.age;
 
+import com.johnny.pack.age.player.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

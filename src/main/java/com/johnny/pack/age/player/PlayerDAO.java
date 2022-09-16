@@ -1,4 +1,6 @@
-package com.johnny.pack.age;
+package com.johnny.pack.age.player;
+
+import com.johnny.pack.age.utilsandprops.DBUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
