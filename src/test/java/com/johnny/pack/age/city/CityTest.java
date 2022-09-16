@@ -8,23 +8,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CityTest {
 
-    private City objectUnderTestEmpyConstructor;
-    private City objectUnderPopulatedConstructor;
+    private City objectUnderTestEmptyConstructor;
+    private City objectUnderTestPopulatedConstructor;
 
     @BeforeEach
     void setup(){
-        objectUnderTestEmpyConstructor = new City();
-        objectUnderPopulatedConstructor = new City("New York", "NY");
+        objectUnderTestEmptyConstructor = new City();
+        objectUnderTestPopulatedConstructor = new City("New York", "NY");
     }
 
     @Test
     @DisplayName("Empty Constructor")
     void empytConstructorTest(){
-        objectUnderTestEmpyConstructor.setId(1);
-        objectUnderTestEmpyConstructor.setName("Detroit");
-        objectUnderTestEmpyConstructor.setState("MI");
+        objectUnderTestEmptyConstructor.setId(1);
+        objectUnderTestEmptyConstructor.setName("Detroit");
+        objectUnderTestEmptyConstructor.setState("MI");
         String expected = "City{id=1, name='Detroit', state='MI'}";
-        assertEquals(expected, objectUnderTestEmpyConstructor.toString());
+        assertEquals(expected, objectUnderTestEmptyConstructor.toString());
     }
 
 
@@ -32,10 +32,10 @@ class CityTest {
     @Test
     @DisplayName("Empty Constructor")
     void populatedConstructorTest(){
-        objectUnderPopulatedConstructor.setId(2);
-        assertEquals(2, objectUnderPopulatedConstructor.getId());
-        assertEquals("New York", objectUnderPopulatedConstructor.getName());
-        assertEquals("NY", objectUnderPopulatedConstructor.getState());
+        objectUnderTestPopulatedConstructor.setId(2);
+        assertEquals(2, objectUnderTestPopulatedConstructor.getId());
+        assertEquals("New York", objectUnderTestPopulatedConstructor.getName());
+        assertEquals("NY", objectUnderTestPopulatedConstructor.getState());
     }
 
 }
