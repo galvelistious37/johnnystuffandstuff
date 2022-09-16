@@ -1,4 +1,4 @@
-package com.johnny.pack.age;
+package com.johnny.pack.age.utilsandprops;
 
 import java.io.InputStream;
 import java.io.FileInputStream;

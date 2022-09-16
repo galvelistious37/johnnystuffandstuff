@@ -1,4 +1,4 @@
-package com.johnny.pack.age;
+package com.johnny.pack.age.player;
 
 import java.text.NumberFormat;
 import java.util.Locale;

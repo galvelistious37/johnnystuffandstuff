@@ -1,4 +1,4 @@
-package com.johnny.pack.age;
+package com.johnny.pack.age.team;
 
 public class Team {
     private String city;
