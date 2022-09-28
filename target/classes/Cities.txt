@@ -1,8 +1,8 @@
-Portland,OR
-Los Angeles,CA
-Las Vegas,NV
-Phoenix,AZ
-Denver,CO
-Miami,FL
-Atlanta,GA
-Memphis,TN
+Portland,1
+Los Angeles,2
+Las Vegas,3
+Phoenix,4
+Denver,5
+Miami,6
+Atlanta,7
+Memphis,8
