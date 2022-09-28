@@ -1,4 +1,4 @@
-package com.johnny.pack.age;
+package com.johnny.pack.age.player;
 
 import com.johnny.pack.age.player.Player;
 import org.junit.jupiter.api.BeforeEach;

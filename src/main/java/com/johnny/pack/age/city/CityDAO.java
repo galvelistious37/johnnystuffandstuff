@@ -15,16 +15,17 @@ import java.util.List;
 
 public class CityDAO {
     private DBUtils dbUtils = new DBUtils();
+    BufferedReader br;
 
-    public List<City> readFromFile(){
+    public List<City> readFromFile(String filename){
         List<City> tempCityList = new ArrayList<>();
-        try(BufferedReader br = new BufferedReader(new FileReader("src\\main\\resources\\Cities.txt"))){
+        try(BufferedReader br = new BufferedReader(new FileReader(filename))){
             String line = "";
             while((line = br.readLine()) != null){
                 City tempCity = new City();
                 String[] arrCity = line.split(",");
                 tempCity.setName(arrCity[0]);
-                tempCity.setState(arrCity[1]);
+                tempCity.setStateId(Integer.parseInt(arrCity[1]));
                 tempCityList.add(tempCity);
             }
         } catch (FileNotFoundException e) {
@@ -35,18 +36,12 @@ public class CityDAO {
         return tempCityList;
     }
 
-    public int insertCities(){
-        List<City> listCity = readFromFile();
+    public int insertCities(String filename){
+        List<City> listCity = readFromFile(filename);
         int status = 0;
         for(City city : listCity){
-            String query = "" +
-                    "INSERT INTO CITY (CITY_NAME, STATE) " +
-                    "VALUES (?, ?)";
-            try(Connection con = dbUtils.getMysqlConnection();
-                PreparedStatement ps = con.prepareStatement(query)){
-                    ps.setString(1, city.getName());
-                    ps.setString(2, city.getState());
-                    status += ps.executeUpdate();
+            try {
+                status += insertCity(city);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -54,7 +49,21 @@ public class CityDAO {
         return status;
     }
 
-    public List<City> getAllCities(){
+    public int insertCity(City city) throws SQLException {
+        int status = 0;
+        String query = "" +
+                "INSERT INTO CITY (CITY_NAME, STATE_ID) " +
+                "VALUES (?, ?)";
+        try(Connection con = dbUtils.getMysqlConnection();
+            PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, city.getName());
+            ps.setInt(2, city.getStateId());
+            status += ps.executeUpdate();
+        }
+        return status;
+    }
+
+    public List<City> getAllCities() throws SQLException {
         List<City> listCity = new ArrayList<>();
         String query = "" +
                 "SELECT * " +
@@ -65,13 +74,11 @@ public class CityDAO {
                 while(rs.next()){
                     City city = new City();
                     city.setId(rs.getInt("CITY_ID"));
+                    city.setStateId(rs.getInt("STATE_ID"));
                     city.setName(rs.getString("CITY_NAME"));
-                    city.setState(rs.getString("STATE"));
                     listCity.add(city);
                 }
             }
-        } catch (SQLException e){
-            e.getMessage();
         }
         return listCity;
     }
