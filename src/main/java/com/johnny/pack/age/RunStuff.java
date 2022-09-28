@@ -2,6 +2,8 @@ package com.johnny.pack.age;
 
 import com.johnny.pack.age.city.City;
 import com.johnny.pack.age.city.CityDAO;
+import com.johnny.pack.age.state.State;
+import com.johnny.pack.age.state.StateDAO;
 
 import java.util.List;
 
@@ -44,5 +46,12 @@ public class RunStuff {
         for(City c : listCity){
             System.out.println(c);
         }
+
+//        StateDAO state = new StateDAO();
+//        System.out.println("Rows inserted: " + state.insertStates());
+//        List<State> listState = state.getAllStates();
+//        for(State s : listState){
+//            System.out.println(s);
+//        }
     }
 }
