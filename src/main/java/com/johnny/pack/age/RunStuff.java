@@ -5,6 +5,7 @@ import com.johnny.pack.age.city.CityDAO;
 import com.johnny.pack.age.state.State;
 import com.johnny.pack.age.state.StateDAO;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class RunStuff {
@@ -41,8 +42,14 @@ public class RunStuff {
 //        }
 
         CityDAO city = new CityDAO();
-        System.out.println("Rows inserted: " + city.insertCities());
-        List<City> listCity = city.getAllCities();
+        String filename = "src\\main\\resources\\Cities.txt";
+        System.out.println("Rows inserted: " + city.insertCities(filename));
+        List<City> listCity = null;
+        try {
+            listCity = city.getAllCities();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         for(City c : listCity){
             System.out.println(c);
         }
