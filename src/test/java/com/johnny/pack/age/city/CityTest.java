@@ -30,7 +30,7 @@ class CityTest {
 
 
     @Test
-    @DisplayName("Empty Constructor")
+    @DisplayName("Populated Constructor")
     void populatedConstructorTest(){
         objectUnderTestPopulatedConstructor.setId(2);
         assertEquals(2, objectUnderTestPopulatedConstructor.getId());
