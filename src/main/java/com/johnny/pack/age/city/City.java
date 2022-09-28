@@ -3,13 +3,13 @@ package com.johnny.pack.age.city;
 public class City {
     private int id;
     private String name;
-    private String state;
+    private int stateId;
 
     public City(){}
 
-    public City(String name, String state) {
+    public City(String name, int stateId) {
         this.name = name;
-        this.state = state;
+        this.stateId = stateId;
     }
 
     public int getId() {
@@ -28,12 +28,12 @@ public class City {
         this.name = name;
     }
 
-    public String getState() {
-        return state;
+    public int getStateId() {
+        return stateId;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStateId(int stateId) {
+        this.stateId = stateId;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class City {
         return "City{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", state='" + state + '\'' +
+                ", stateId='" + stateId + '\'' +
                 '}';
     }
 }

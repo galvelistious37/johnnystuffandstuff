@@ -14,16 +14,16 @@ class CityTest {
     @BeforeEach
     void setup(){
         objectUnderTestEmptyConstructor = new City();
-        objectUnderTestPopulatedConstructor = new City("New York", "NY");
+        objectUnderTestPopulatedConstructor = new City("Portland", 1);
     }
 
     @Test
     @DisplayName("Empty Constructor")
-    void empytConstructorTest(){
+    void emptyConstructorTest(){
         objectUnderTestEmptyConstructor.setId(1);
-        objectUnderTestEmptyConstructor.setName("Detroit");
-        objectUnderTestEmptyConstructor.setState("MI");
-        String expected = "City{id=1, name='Detroit', state='MI'}";
+        objectUnderTestEmptyConstructor.setName("Denver");
+        objectUnderTestEmptyConstructor.setStateId(5);
+        String expected = "City{id=1, name='Denver', stateId='5'}";
         assertEquals(expected, objectUnderTestEmptyConstructor.toString());
     }
 
@@ -34,8 +34,8 @@ class CityTest {
     void populatedConstructorTest(){
         objectUnderTestPopulatedConstructor.setId(2);
         assertEquals(2, objectUnderTestPopulatedConstructor.getId());
-        assertEquals("New York", objectUnderTestPopulatedConstructor.getName());
-        assertEquals("NY", objectUnderTestPopulatedConstructor.getState());
+        assertEquals("Portland", objectUnderTestPopulatedConstructor.getName());
+        assertEquals(1, objectUnderTestPopulatedConstructor.getStateId());
     }
 
 }
