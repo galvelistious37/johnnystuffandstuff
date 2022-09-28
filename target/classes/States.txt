@@ -1,0 +1,8 @@
+1,OR
+2,CA
+3,NV
+4,AZ
+5,CO
+6,FL
+7,GA
+8,TN
