@@ -5,11 +5,12 @@ import com.johnny.pack.age.city.CityDAO;
 import com.johnny.pack.age.state.State;
 import com.johnny.pack.age.state.StateDAO;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 public class RunStuff {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, SQLException {
 //        try(Connection con = DBUtils.getMysqlConnection("teams")){
 //            String query = "SELECT * " +
 //                    "FROM CITY";
