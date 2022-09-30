@@ -36,12 +36,12 @@ public class CityDAO {
         List<City> listCity = readFromFile(filename);
         int status = 0;
         for(City city : listCity){
-            status += insertCity(city);
+            status += insertCityObject(city);
         }
         return status;
     }
 
-    public int insertCity(City city) throws SQLException {
+    public int insertCityObject(City city) throws SQLException {
         int status = 0;
         String query = "" +
                 "INSERT INTO CITY (CITY_NAME, STATE_ID) " +
@@ -50,6 +50,20 @@ public class CityDAO {
             PreparedStatement ps = con.prepareStatement(query)) {
             ps.setString(1, city.getName());
             ps.setInt(2, city.getStateId());
+            status += ps.executeUpdate();
+        }
+        return status;
+    }
+
+    public int insertCityByName(String name, int stateId) throws SQLException{
+        int status = 0;
+        String query = "" +
+                "INSERT INTO CITY (STATE_ID, CITY_NAME) " +
+                "VALUES (?,?)";
+        try(Connection con = dbUtils.getMysqlConnection()){
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, stateId);
+            ps.setString(2, name);
             status += ps.executeUpdate();
         }
         return status;

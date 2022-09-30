@@ -95,7 +95,7 @@ class CityDAOTest {
         when(conMock.prepareStatement(anyString())).thenReturn(psMock);
         when(psMock.executeUpdate()).thenThrow(new SQLException("SQLException and stuff"));
         SQLException exception = assertThrows(SQLException.class,
-                () -> objectUnderTest.insertCity(cityMock), "Throws Exception test");
+                () -> objectUnderTest.insertCityObject(cityMock), "Throws Exception test");
         String expected = "SQLException and stuff";
         assertEquals(expected, exception.getMessage());
     }

@@ -3,7 +3,6 @@ package com.johnny.pack.age.state;
 import com.johnny.pack.age.utilsandprops.DBUtils;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -14,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StateDAO {
-    DBUtils dbUtils = new DBUtils();
+    private DBUtils dbUtils = new DBUtils();
 
-    public List<State> readFromFile(){
+    private List<State> readFromFile() throws IOException{
         List<State> tempStateList = new ArrayList<>();
         try(BufferedReader br = new BufferedReader(new FileReader("src\\main\\resources\\States.txt"))){
-            String line = "";
+            String line;
             while((line = br.readLine()) != null){
                 State tempState = new State();
                 String[] stateArray = line.split(",");
@@ -27,34 +26,49 @@ public class StateDAO {
                 tempState.setName(stateArray[1]);
                 tempStateList.add(tempState);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IOException("Problem reading from file");
         }
         return tempStateList;
     }
 
-    public int insertStates(){
+    public int insertStates() throws IOException, SQLException{
         List<State> stateList = readFromFile();
         int status = 0;
         for(State state : stateList){
-            String query = "" +
-                    "INSERT INTO STATE (STATE_ID, STATE_NAME)" +
-                    "VALUES (?, ?)";
-            try(Connection con = dbUtils.getMysqlConnection();
-                PreparedStatement ps = con.prepareStatement(query)){
-                ps.setInt(1, state.getStateId());
-                ps.setString(2, state.getName());
-                status += ps.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            insertStateObject(state);
         }
         return status;
     }
 
-    public List<State> getAllStates(){
+    public int insertStateObject(State state) throws SQLException{
+        int status = 0;
+        String query = "" +
+                "INSERT INTO STATE (STATE_ID, STATE_NAME) " +
+                "VALUES (?, ?)";
+        try(Connection con = dbUtils.getMysqlConnection();
+            PreparedStatement ps = con.prepareStatement(query)){
+            ps.setInt(1, state.getStateId());
+            ps.setString(2, state.getName());
+            status += ps.executeUpdate();
+        }
+        return status;
+    }
+
+    public int insertStateOnlyName(String name) throws SQLException{
+        int status = 0;
+        String query = "" +
+                "INSERT INTO STATE(STATE_NAME) " +
+                "VALUES(?)";
+        try(Connection con = dbUtils.getMysqlConnection()){
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, name);
+            status += ps.executeUpdate();
+        }
+        return status;
+    }
+
+    public List<State> getAllStates() throws SQLException{
         List<State> listState = new ArrayList<>();
         String query = "" +
                 "SELECT * " +
@@ -69,8 +83,6 @@ public class StateDAO {
                     listState.add(State);
                 }
             }
-        } catch (SQLException e){
-            e.getMessage();
         }
         return listState;
     }
