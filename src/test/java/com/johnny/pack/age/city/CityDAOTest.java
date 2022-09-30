@@ -99,4 +99,26 @@ class CityDAOTest {
         String expected = "SQLException and stuff";
         assertEquals(expected, exception.getMessage());
     }
+
+    @Test
+    @DisplayName("insertCityByName returns int rows inserted")
+    void testInsertCityByName() throws SQLException {
+        when(dbUtilsMock.getMysqlConnection()).thenReturn(conMock);
+        when(conMock.prepareStatement(anyString())).thenReturn(psMock);
+        when(psMock.executeUpdate()).thenReturn(1);
+        assertEquals(1, objectUnderTest.insertCityByName("punktown", 1));
+    }
+
+    @Test
+    @DisplayName("insertCityByName throws SQLException")
+    void insertCItyByNameThrowsSQLExceptionTest() throws SQLException {
+        when(dbUtilsMock.getMysqlConnection()).thenReturn(conMock);
+        when(conMock.prepareStatement(anyString())).thenReturn(psMock);
+        when(psMock.executeUpdate()).thenThrow(new SQLException("SQLException and stuff"));
+        SQLException exception = assertThrows(SQLException.class,
+                () -> objectUnderTest.insertCityByName("punktown", 1), "Throws Exception test");
+        String expected = "SQLException and stuff";
+        assertEquals(expected, exception.getMessage());
+    }
+
 }
