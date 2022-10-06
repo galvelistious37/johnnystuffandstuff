@@ -60,36 +60,7 @@ class CityDAOTest {
     }
 
     @Test
-    @DisplayName("CityDAO Select All")
-    void testSelectAll() throws SQLException {
-        when(dbUtilsMock.getMysqlConnection()).thenReturn(conMock);
-        when(conMock.prepareStatement(anyString())).thenReturn(psMock);
-        when(psMock.executeQuery()).thenReturn(rsMock);
-        when(rsMock.next()).thenReturn(true).thenReturn(false);
-        when(rsMock.getInt("CITY_ID")).thenReturn(1);
-        when(rsMock.getInt("STATE_ID")).thenReturn(1);
-        when(rsMock.getString("CITY_NAME")).thenReturn("Portland");
-
-        String expected = "City{id=1, name='Portland', stateId='1'}";
-
-        List<City> testList = objectUnderTest.getAllCities();
-        assertEquals(expected, testList.get(0).toString());
-    }
-
-    @Test
-    @DisplayName("Select all throws exception")
-    void selectAllThrowsExceptionTest() throws SQLException {
-        when(dbUtilsMock.getMysqlConnection()).thenReturn(conMock);
-        when(conMock.prepareStatement(anyString())).thenReturn(psMock);
-        when(psMock.executeQuery()).thenThrow(new SQLException("SQLException and stuff"));
-        SQLException exception = assertThrows(SQLException.class,
-                () -> objectUnderTest.getAllCities(), "Throws Exception test");
-        String expected = "SQLException and stuff";
-        assertEquals(expected, exception.getMessage());
-    }
-
-    @Test
-    @DisplayName("Insert throws exception")
+    @DisplayName("insertCityObject throws exception")
     void insertThrowsExceptionTest() throws SQLException {
         when(dbUtilsMock.getMysqlConnection()).thenReturn(conMock);
         when(conMock.prepareStatement(anyString())).thenReturn(psMock);
@@ -121,4 +92,32 @@ class CityDAOTest {
         assertEquals(expected, exception.getMessage());
     }
 
+    @Test
+    @DisplayName("CityDAO Select All")
+    void testSelectAll() throws SQLException {
+        when(dbUtilsMock.getMysqlConnection()).thenReturn(conMock);
+        when(conMock.prepareStatement(anyString())).thenReturn(psMock);
+        when(psMock.executeQuery()).thenReturn(rsMock);
+        when(rsMock.next()).thenReturn(true).thenReturn(false);
+        when(rsMock.getInt("CITY_ID")).thenReturn(1);
+        when(rsMock.getInt("STATE_ID")).thenReturn(1);
+        when(rsMock.getString("CITY_NAME")).thenReturn("Portland");
+
+        String expected = "City{id=1, name='Portland', stateId='1'}";
+
+        List<City> testList = objectUnderTest.getAllCities();
+        assertEquals(expected, testList.get(0).toString());
+    }
+
+    @Test
+    @DisplayName("Select all throws exception")
+    void selectAllThrowsExceptionTest() throws SQLException {
+        when(dbUtilsMock.getMysqlConnection()).thenReturn(conMock);
+        when(conMock.prepareStatement(anyString())).thenReturn(psMock);
+        when(psMock.executeQuery()).thenThrow(new SQLException("SQLException and stuff"));
+        SQLException exception = assertThrows(SQLException.class,
+                () -> objectUnderTest.getAllCities(), "Throws Exception test");
+        String expected = "SQLException and stuff";
+        assertEquals(expected, exception.getMessage());
+    }
 }
