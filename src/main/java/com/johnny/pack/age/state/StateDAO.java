@@ -55,7 +55,7 @@ public class StateDAO {
         return status;
     }
 
-    public int insertStateOnlyName(String name) throws SQLException{
+    public int insertStateByName(String name) throws SQLException{
         int status = 0;
         String query = "" +
                 "INSERT INTO STATE(STATE_NAME) " +
@@ -78,8 +78,8 @@ public class StateDAO {
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
                     State State = new State();
-                    State.setStateId(rs.getInt("State_ID"));
-                    State.setName(rs.getString("State_NAME"));
+                    State.setStateId(rs.getInt("STATE_ID"));
+                    State.setName(rs.getString("STATE_NAME"));
                     listState.add(State);
                 }
             }
