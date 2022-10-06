@@ -15,9 +15,9 @@ import java.util.List;
 public class StateDAO {
     private DBUtils dbUtils = new DBUtils();
 
-    private List<State> readFromFile() throws IOException{
+    private List<State> readFromFile(String filename) throws IOException{
         List<State> tempStateList = new ArrayList<>();
-        try(BufferedReader br = new BufferedReader(new FileReader("src\\main\\resources\\States.txt"))){
+        try(BufferedReader br = new BufferedReader(new FileReader(filename))){
             String line;
             while((line = br.readLine()) != null){
                 State tempState = new State();
@@ -32,11 +32,11 @@ public class StateDAO {
         return tempStateList;
     }
 
-    public int insertStates() throws IOException, SQLException{
-        List<State> stateList = readFromFile();
+    public int insertStates(String filename) throws IOException, SQLException{
+        List<State> stateList = readFromFile(filename);
         int status = 0;
         for(State state : stateList){
-            insertStateObject(state);
+            status += insertStateObject(state);
         }
         return status;
     }
