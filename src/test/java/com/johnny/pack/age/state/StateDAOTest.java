@@ -1,5 +1,6 @@
-package com.johnny.pack.age.city;
+package com.johnny.pack.age.state;
 
+import com.johnny.pack.age.city.City;
 import com.johnny.pack.age.utilsandprops.DBUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class CityDAOTest {
+class StateDAOTest {
 
     @Mock
     DBUtils dbUtilsMock;
@@ -31,81 +32,80 @@ class CityDAOTest {
     @Mock
     ResultSet rsMock;
     @Mock
-    City cityMock;
+    State stateMock;
 
     @InjectMocks
-    CityDAO objectUnderTest;
+    StateDAO objectUnderTest;
 
     @Test
-    @DisplayName("CityDAO insert cities")
-    void testInsertCities() throws SQLException, IOException {
+    @DisplayName("StateDAO insert States")
+    void testInsertStates() throws SQLException, IOException {
         when(dbUtilsMock.getMysqlConnection()).thenReturn(conMock);
         when(conMock.prepareStatement(anyString())).thenReturn(psMock);
         when(psMock.executeUpdate()).thenReturn(1);
-        String filename = "src\\test\\resources\\CitiesTestFile.txt";
-        assertEquals(2, objectUnderTest.insertCities(filename));
+        String filename = "src\\test\\resources\\StatesTestFile.txt";
+        assertEquals(2, objectUnderTest.insertStates(filename));
     }
 
     @Test
-    @DisplayName("insertCities catches IOException")
-    void insertCitiesCatchesIOExceptionTest(){
+    @DisplayName("insertStates catches IOException")
+    void insertStatesCatchesIOExceptionTest(){
         String filename = "src\\test\\resources\\fileDoesNotExist.txt";
         try{
-            objectUnderTest.insertCities(filename);
+            objectUnderTest.insertStates(filename);
         } catch (IOException | SQLException e){
             assertTrue(e instanceof IOException);
-            String expected = "Problem finding input file";
+            String expected = "Problem reading from file";
             assertEquals(expected, e.getMessage());
         }
     }
 
     @Test
-    @DisplayName("insertCityObject throws exception")
+    @DisplayName("insertStateObject throws exception")
     void insertThrowsExceptionTest() throws SQLException {
         when(dbUtilsMock.getMysqlConnection()).thenReturn(conMock);
         when(conMock.prepareStatement(anyString())).thenReturn(psMock);
         when(psMock.executeUpdate()).thenThrow(new SQLException("SQLException and stuff"));
         SQLException exception = assertThrows(SQLException.class,
-                () -> objectUnderTest.insertCityObject(cityMock), "Throws Exception test");
+                () -> objectUnderTest.insertStateObject(stateMock), "Throws Exception test");
         String expected = "SQLException and stuff";
         assertEquals(expected, exception.getMessage());
     }
 
     @Test
-    @DisplayName("insertCityByName returns int rows inserted")
-    void testInsertCityByName() throws SQLException {
+    @DisplayName("insertStateByName returns int rows inserted")
+    void testinsertStateByName() throws SQLException {
         when(dbUtilsMock.getMysqlConnection()).thenReturn(conMock);
         when(conMock.prepareStatement(anyString())).thenReturn(psMock);
         when(psMock.executeUpdate()).thenReturn(1);
-        assertEquals(1, objectUnderTest.insertCityByName("punktown", 1));
+        assertEquals(1, objectUnderTest.insertStateByName("punktown"));
     }
 
     @Test
-    @DisplayName("insertCityByName throws SQLException")
-    void insertCItyByNameThrowsSQLExceptionTest() throws SQLException {
+    @DisplayName("insertStateByName throws SQLException")
+    void insertStateByNameThrowsSQLExceptionTest() throws SQLException {
         when(dbUtilsMock.getMysqlConnection()).thenReturn(conMock);
         when(conMock.prepareStatement(anyString())).thenReturn(psMock);
         when(psMock.executeUpdate()).thenThrow(new SQLException("SQLException and stuff"));
         SQLException exception = assertThrows(SQLException.class,
-                () -> objectUnderTest.insertCityByName("punktown", 1), "Throws Exception test");
+                () -> objectUnderTest.insertStateByName("punktown"), "Throws Exception test");
         String expected = "SQLException and stuff";
         assertEquals(expected, exception.getMessage());
     }
 
     @Test
-    @DisplayName("CityDAO Select All")
+    @DisplayName("StateDAO Select All")
     void testSelectAll() throws SQLException {
         when(dbUtilsMock.getMysqlConnection()).thenReturn(conMock);
         when(conMock.prepareStatement(anyString())).thenReturn(psMock);
         when(psMock.executeQuery()).thenReturn(rsMock);
         when(rsMock.next()).thenReturn(true).thenReturn(false);
-        when(rsMock.getInt("CITY_ID")).thenReturn(1);
         when(rsMock.getInt("STATE_ID")).thenReturn(1);
-        when(rsMock.getString("CITY_NAME")).thenReturn("Portland");
+        when(rsMock.getString("STATE_NAME")).thenReturn("Punkington");
 
-        String expected = "City{id=1, name='Portland', stateId='1'}";
+        String expected = "1, Punkington";
 
-        List<City> testList = objectUnderTest.getAllCities();
+        List<State> testList = objectUnderTest.getAllStates();
         assertEquals(expected, testList.get(0).toString());
     }
 
@@ -116,7 +116,7 @@ class CityDAOTest {
         when(conMock.prepareStatement(anyString())).thenReturn(psMock);
         when(psMock.executeQuery()).thenThrow(new SQLException("SQLException and stuff"));
         SQLException exception = assertThrows(SQLException.class,
-                () -> objectUnderTest.getAllCities(), "Throws Exception test");
+                () -> objectUnderTest.getAllStates(), "Throws Exception test");
         String expected = "SQLException and stuff";
         assertEquals(expected, exception.getMessage());
     }
