@@ -4,20 +4,7 @@ public class State {
     private int stateId;
     private String name;
 
-    /**
-     * Insert a new state to the database
-     * @param name - String state name
-     */
-    void insertState(String name){
-
-    }
-
-    /**
-     * Insert a new state to the database
-     * @param id - int state id
-     * @param name - String state name
-     */
-    void insertState(int id, String name){
+    public State(){
 
     }
 
